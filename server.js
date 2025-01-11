@@ -17,8 +17,6 @@ app.use(cors(), express.json())
 
 const typeDefs = await readFile("./schema.graphql", "utf8")
 
-console.log(typeDefs)
-
 const apolloServer = new ApolloServer({ typeDefs, resolvers })
 await apolloServer.start()
 app.use("/graphql", apolloMiddleware(apolloServer))
