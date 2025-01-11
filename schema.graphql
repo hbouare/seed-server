@@ -1,0 +1,469 @@
+scalar GraphQLJSON
+scalar URL
+scalar GraphQLTimestamp
+
+# union RelatedProjectOrString = RelatedProject | String
+# union RelatedEventOrString = RelatedEvent | String
+# union RelatedPublicationsOrString = RelatedPublications | String
+# union RelatedNewsOrString = RelatedNews | String
+# union Organizer = People | Affiliation
+# union StringOrBoolean = String | Boolean
+
+type Query {
+  projects: [Project!]!
+}
+
+type Image {
+  url: URL!
+  alt: String
+  caption: String
+  copyright: String
+  license: String
+  licenseUrl: String
+  backgroundColor: String
+}
+
+type Geocode {
+  lat: Float
+  lng: Float
+}
+
+type Location {
+  name: String!
+  details: String
+  alt: String
+  street: String
+  city: String
+  country: String
+  zip: Int
+  geocode: Geocode
+}
+
+# type Action {
+#   color: String
+#   link: String!
+#   image: Image!
+#   title: String
+#   video: URL
+#   slots: [String!]!
+# }
+
+type Video {
+  url: URL
+  alt: String
+  caption: String
+  copyright: String
+  license: String
+  licenseUrl: String
+  backgroundColor: String
+}
+
+type Tag {
+  name: String
+  description: String
+  icon: String
+  createdAt: GraphQLTimestamp
+  updatedAt: GraphQLTimestamp
+}
+
+type File {
+  id: ID!
+  name: String!
+  url: URL!
+  size: Int!
+  fileType: String!
+  hash: String!
+  path: String!
+  file: String!
+  image: String!
+  thumb: URL!
+  createdAt: GraphQLTimestamp!
+  updatedAt: GraphQLTimestamp!
+}
+
+type Affiliation {
+  location: Location
+  image: Image
+  name: String
+  ror: String
+  url: String
+}
+
+type RelatedEvent {
+  bookingState: Int!
+  createdAt: GraphQLTimestamp!
+  description: String
+  image: Image
+  name: String!
+  outside: Boolean
+  start: String
+  state: Int!
+  summary: String
+  eventType: Int!
+  url: URL!
+}
+
+type RelatedPublications {
+  title: String!
+  shortDescription: String
+  description: String
+  url: URL!
+  image: Image
+  video: Video
+  color: String
+  date: GraphQLTimestamp
+}
+
+type RelatedNews {
+  title: String!
+  description: String
+  image: Image
+  color: String
+  url: URL!
+  date: GraphQLTimestamp
+  featured: GraphQLTimestamp
+}
+
+type Project {
+  title: String!
+  subtitle: String
+  description: String
+  url: URL
+  affiliations: [Affiliation]
+  relatedEvents: [RelatedEvent]
+  relatedPublications: [RelatedPublications]
+  relatedNews: [RelatedNews]
+  gallery: [Image]
+  image: Image
+  video: Video
+  tags: [Tag]
+  files: [File]
+  color: String
+  date: GraphQLTimestamp
+  featured: GraphQLTimestamp
+}
+
+# type Position {
+#   role: String!
+#   department: String
+#   start: GraphQLTimestamp
+#   stop: GraphQLTimestamp
+# }
+
+# type Socials {
+#   website: URL
+#   wikipedia: URL
+#   orcid: URL
+#   linkedin: URL
+#   twitter: URL
+#   instagram: URL
+#   scholar: URL
+#   researchgate: URL
+#   mendeley: URL
+#   idRef: Int
+# }
+
+# type Consent {
+#   data: Boolean!
+#   record: Boolean!
+#   diffusion: Boolean!
+#   publication: Boolean!
+#   email: Boolean!
+#   newsletter: Boolean!
+#   fellowshipnewsletter: Boolean!
+# }
+
+# type Vintage {
+#   name: String!
+#   year: Int!
+#   theme: String
+#   url: URL
+# }
+
+# type Groups {
+#   team: Boolean
+#   sab: Boolean
+#   board: Boolean
+#   fellow: Boolean
+#   sponsor: Boolean
+#   vintage: [Vintage]
+# }
+
+# type Disciplines {
+#   createdAt: GraphQLTimestamp!
+#   description: String!
+#   icon: String!
+#   name: String!
+#   updatedAt: GraphQLTimestamp!
+# }
+
+# type RelatedProject {
+#   title: String!
+#   shortDescription: String
+#   description: String
+#   url: URL!
+#   image: Image
+#   video: Video
+#   color: String
+#   date: GraphQLTimestamp
+# }
+
+# type People {
+#   firstname: String!
+#   lastname: String!
+#   affiliations: [AffiliationWithPositions]
+#   image: Image
+#   socials: Socials
+#   biography: String
+#   consent: Consent!
+#   groups: Groups!
+#   lang: String!
+#   disciplines: [Disciplines]
+#   relatedProject: [RelatedProjectOrString]
+#   relatedEvents: [RelatedEventOrString]
+#   relatedPublications: [RelatedPublicationsOrString]
+#   relatedNews: [RelatedNewsOrString]
+#   video: [Video]
+# }
+
+# type AffiliationWithPositions {
+#   affiliation: Affiliation
+#   positions: [Position]
+# }
+
+# type FellowshipDetails {
+#   type: String
+#   fundingPeriod: String
+#   profile: String
+#   tasks: String
+#   location: String
+#   funding: String
+#   housing: String
+#   meals: String
+#   applicationMaterials: String
+#   selectionProcess: String
+#   researchSupport: String
+# }
+
+# type Fellowship {
+#   action: String
+#   affiliations: [Affiliation]
+#   applicationStart: GraphQLTimestamp
+#   disciplines: [Disciplines]
+#   fellowshipStart: String
+#   contact: String
+#   description: String!
+#   fellowshipDetails: FellowshipDetails!
+#   fellow: [People]
+#   url: URL
+#   applicationStop: GraphQLTimestamp
+#   fellowshipStop: GraphQLTimestamp
+#   image: Image
+#   member: [Affiliation]
+#   publicationDate: String
+#   summary: String
+#   files: [File]
+#   fellowshipType: Int!
+#   gallery: [Image]
+#   title: String!
+#   video: [Video]
+# }
+
+# type News {
+#   title: String!
+#   category: Int
+#   description: String
+#   tags: [Tag!]
+#   image: Image
+#   gallery: [Image!]
+#   color: String
+#   url: URL
+#   date: GraphQLTimestamp
+#   featured: GraphQLTimestamp
+#   relatedProject: [RelatedProjectOrString!]
+#   relatedEvents: [RelatedEventOrString!]
+#   relatedPublications: [RelatedPublicationOrString!]
+#   people: [People!]
+#   files: [File!]
+# }
+
+# type Event {
+#   affiliations: [Affiliation!]
+#   appId: String!
+#   availableSlots: Int!
+#   bookingState: Int!
+#   category: Int!
+#   createdAt: GraphQLTimestamp
+#   delay: Int
+#   description: String!
+#   disciplines: [Discipline!]
+#   discussants: [People!]
+#   files: [File!]
+#   image: Image
+#   gallery: [Image!]
+#   name: String!
+#   eventSlot: [EventSlot!]
+#   organizers: [Organizer!]
+#   outside: Boolean!
+#   location: Location!
+#   organiserType: Int!
+#   relatedProject: [RelatedProjectOrString!]
+#   relatedPublications: [RelatedPublicationOrString!]
+#   relatedNews: [RelatedNewsOrString!]
+#   speakers: [People!]
+#   start: String!
+#   state: Int!
+#   stop: String!
+#   stream: String
+#   subtitle: String
+#   summary: String
+#   tags: [Tag!]
+#   totalSlots: Int!
+#   eventType: Int!
+#   updatedAt: GraphQLTimestamp!
+#   url: URL
+# }
+
+# type EventSlot {
+#   email: String!
+#   firstname: String!
+#   institution: String
+#   lang: String!
+#   lastname: String!
+# }
+
+# type Publications {
+#   title: String!
+#   subtitle: String
+#   description: String
+#   url: URL
+#   affiliations: [Affiliation!]
+#   relatedEvents: [RelatedEventOrString!]
+#   relatedNews: [RelatedNewsOrString!]
+#   relatedProjects: [RelatedProjectOrString!]
+#   gallery: [Image!]
+#   image: Image
+#   video: Video
+#   tags: [Tag!]
+#   files: [File!]
+#   color: String
+#   date: GraphQLTimestamp
+# }
+
+# type Sponsor implements People & Affiliation {
+
+# }
+
+# type Gallery implements Image {
+
+# }
+
+# type Fellow implements People {
+
+# }
+
+# type Model {
+#   queryFilters: JSON #TODO à verifier
+#   aliases: [String!]
+#   source: String
+#   path: String
+#   type: String
+#   list: List!
+#   form: JSON
+# }
+
+# type Filters {
+#   type: String!
+#   rules: JSON
+#   label: String!
+#   items: JSON #TODO à verifier
+#   visibility: Visibility
+#   multiple: Boolean
+# }
+
+# type Sort {
+#   icon: String!
+#   text: String!
+#   value: [SortValue!]!  #TODO à verifier
+#   default: Boolean
+# }
+
+# type SortValue {
+#   key: String!
+#   order: Int!
+# }
+
+# type Views {
+#   icon: String!
+#   default: Boolean
+#   name: String
+# }
+
+# type List {
+#   create: Boolean!
+#   perPage: PerPage!
+#   filters: JSON
+#   sort: JSON
+#   views: JSON
+# }
+
+# type Visibility {
+#   default: Boolean
+#   switchIf: [JSON]
+#   disjonctive: Boolean
+# }
+
+# type PerPage {
+#   options: [Int!]!
+#   default: Int!
+# }
+
+# type Form {
+#   type: Int!
+#   component: StringOrBoolean!
+#   label: String!
+#   default: JSON #TODO : à verifier
+#   description: String
+#   hint: StringOrBoolean
+#   rules: Rules
+#   visibility: Visibility
+#   meta: String
+#   items: JSON
+#   multiple: Boolean
+# }
+
+# type Rules {
+#   required: Boolean
+#   min: Int
+#   max: Int
+#   url: Boolean
+#   color: Boolean
+#   ror: Boolean
+#   DOI: Boolean
+#   date: Boolean
+#   email: Boolean
+#   digit: Boolean
+#   orcid: Boolean
+# }
+
+# type Article {
+#   name: String!
+#   abstract: String!
+#   image: Image
+#   video: Video
+#   needDOI: Boolean!
+#   DOI: String
+#   Zid: String
+#   highlight: Boolean!
+#   date: GraphQLTimestamp
+#   authors: [People!]!
+#   issue: String
+#   lang: String!
+#   disciplines: [Discipline!]
+#   tag: [Tag!]
+# }
+
+# # type App {
+# #   name: String!
+# #   logo: Image
+# # }

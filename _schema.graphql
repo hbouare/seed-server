@@ -1,0 +1,475 @@
+union RelatedProjectOrString = RelatedProject | String
+union RelatedEventOrString = RelatedEvent | String
+union RelatedPublicationsOrString = RelatedPublications | String
+union RelatedNewsOrString = RelatedNews | String
+union Organizer = People | Affiliation
+union StringOrBoolean = String | Boolean
+
+type Query {
+  projects: [Project!]!
+}
+
+type Image {
+  url: AWSURL!
+  alt: String
+  caption: String
+  copyright: String
+  license: String
+  licenseUrl: String
+  backgroundColor: String
+}
+
+type Geocode {
+  lat: Float
+  lng: Float
+}
+
+type Location {
+  name: String!
+  details: String
+  alt: String
+  street: String
+  city: String
+  country: String
+  zip: Int
+  geocode: Geocode
+}
+
+type Action {
+  color: String
+  link: String!
+  image: Image!
+  title: String
+  video: AWSURL
+  slots: [String!]!
+}
+
+type Video {
+  url: AWSURL
+  alt: String
+  caption: String
+  copyright: String
+  license: String
+  licenseUrl: String
+  backgroundColor: String
+}
+
+type Tag {
+  name: String
+  description: String
+  icon: String
+  createdAt: AWSTimestamp
+  updatedAt: AWSTimestamp
+}
+
+type File {
+  id: ID!
+  name: String!
+  url: AWSURL!
+  size: Int!
+  fileType: String!
+  hash: String!
+  path: String!
+  file: String!
+  image: String!
+  thumb: AWSURL!
+  createdAt: AWSTimestamp!
+  updatedAt: AWSTimestamp!
+}
+
+type Affiliation {
+  location: Location
+  image: Image
+  name: String
+  ror: String
+  url: String
+}
+
+type RelatedEvent {
+  bookingState: Int!
+  createdAt: AWSTimestamp!
+  description: String
+  image: Image
+  name: String!
+  outside: Boolean
+  start: String
+  state: Int!
+  summary: String
+  eventType: Int!
+  url: AWSURL!
+}
+
+type RelatedPublications {
+  title: String!
+  shortDescription: String
+  description: String
+  url: AWSURL!
+  image: Image
+  video: Video
+  color: String
+  date: AWSTimestamp
+}
+
+type RelatedNews {
+  title: String!
+  description: String
+  image: Image
+  color: String
+  url: AWSURL!
+  date: AWSTimestamp
+  featured: AWSTimestamp
+}
+
+type Project {
+  title: String!
+  subtitle: String
+  description: String
+  url: AWSURL
+  affiliations: [Affiliation]
+  relatedEvents: [RelatedEventOrString]
+  relatedPublications: [RelatedPublicationsOrString]
+  relatedNews: [RelatedNewsOrString]
+  gallery: [Image]
+  image: Image
+  video: Video
+  tags: [Tag]
+  files: [File]
+  color: String
+  date: AWSTimestamp
+  featured: AWSTimestamp
+}
+
+type Position {
+  role: String!
+  department: String
+  start: AWSTimestamp
+  stop: AWSTimestamp
+}
+
+type Socials {
+  website: AWSURL
+  wikipedia: AWSURL
+  orcid: AWSURL
+  linkedin: AWSURL
+  twitter: AWSURL
+  instagram: AWSURL
+  scholar: AWSURL
+  researchgate: AWSURL
+  mendeley: AWSURL
+  idRef: Int
+}
+
+type Consent {
+  data: Boolean!
+  record: Boolean!
+  diffusion: Boolean!
+  publication: Boolean!
+  email: Boolean!
+  newsletter: Boolean!
+  fellowshipnewsletter: Boolean!
+}
+
+type Vintage {
+  name: String!
+  year: Int!
+  theme: String
+  url: AWSURL
+}
+
+type Groups {
+  team: Boolean
+  sab: Boolean
+  board: Boolean
+  fellow: Boolean
+  sponsor: Boolean
+  vintage: [Vintage]
+}
+
+type Disciplines {
+  createdAt: AWSTimestamp!
+  description: String!
+  icon: String!
+  name: String!
+  updatedAt: AWSTimestamp!
+}
+
+type RelatedProject {
+  title: String!
+  shortDescription: String
+  description: String
+  url: AWSURL!
+  image: Image
+  video: Video
+  color: String
+  date: AWSTimestamp
+}
+
+union RelatedProjectOrString = RelatedProject | String
+union RelatedEventOrString = RelatedEvent | String
+union RelatedPublicationsOrString = RelatedPublications | String
+union RelatedNewsOrString = RelatedNews | String
+
+type People {
+  firstname: String!
+  lastname: String!
+  affiliations: [AffiliationWithPositions]
+  image: Image
+  socials: Socials
+  biography: String
+  consent: Consent!
+  groups: Groups!
+  lang: String!
+  disciplines: [Disciplines]
+  relatedProject: [RelatedProjectOrString]
+  relatedEvents: [RelatedEventOrString]
+  relatedPublications: [RelatedPublicationsOrString]
+  relatedNews: [RelatedNewsOrString]
+  video: [Video]
+}
+
+type AffiliationWithPositions {
+  affiliation: Affiliation
+  positions: [Position]
+}
+
+type FellowshipDetails {
+  type: String
+  fundingPeriod: String
+  profile: String
+  tasks: String
+  location: String
+  funding: String
+  housing: String
+  meals: String
+  applicationMaterials: String
+  selectionProcess: String
+  researchSupport: String
+}
+
+type Fellowship {
+  action: String
+  affiliations: [Affiliation]
+  applicationStart: AWSTimestamp
+  disciplines: [Disciplines]
+  fellowshipStart: String
+  contact: String
+  description: String!
+  fellowshipDetails: FellowshipDetails!
+  fellow: [People]
+  url: AWSURL
+  applicationStop: AWSTimestamp
+  fellowshipStop: AWSTimestamp
+  image: Image
+  member: [Affiliation]
+  publicationDate: String
+  summary: String
+  files: [File]
+  fellowshipType: Int!
+  gallery: [Image]
+  title: String!
+  video: [Video]
+}
+
+type News {
+  title: String!
+  category: Int
+  description: String
+  tags: [Tag!]
+  image: Image
+  gallery: [Image!]
+  color: String
+  url: AWSURL
+  date: AWSTimestamp
+  featured: AWSTimestamp
+  relatedProject: [RelatedProjectOrString!]
+  relatedEvents: [RelatedEventOrString!]
+  relatedPublications: [RelatedPublicationOrString!]
+  people: [People!]
+  files: [File!]
+}
+
+type Event {
+  affiliations: [Affiliation!]
+  appId: String!
+  availableSlots: Int!
+  bookingState: Int!
+  category: Int!
+  createdAt: AWSTimestamp
+  delay: Int
+  description: String!
+  disciplines: [Discipline!]
+  discussants: [People!]
+  files: [File!]
+  image: Image
+  gallery: [Image!]
+  name: String!
+  eventSlot: [EventSlot!]
+  organizers: [Organizer!]
+  outside: Boolean!
+  location: Location!
+  organiserType: Int!
+  relatedProject: [RelatedProjectOrString!]
+  relatedPublications: [RelatedPublicationOrString!]
+  relatedNews: [RelatedNewsOrString!]
+  speakers: [People!]
+  start: String!
+  state: Int!
+  stop: String!
+  stream: String
+  subtitle: String
+  summary: String
+  tags: [Tag!]
+  totalSlots: Int!
+  eventType: Int!
+  updatedAt: AWSTimestamp!
+  url: AWSURL
+}
+
+type EventSlot {
+  email: String!
+  firstname: String!
+  institution: String
+  lang: String!
+  lastname: String!
+}
+
+type Publications {
+  title: String!
+  subtitle: String
+  description: String
+  url: AWSURL
+  affiliations: [Affiliation!]
+  relatedEvents: [RelatedEventOrString!]
+  relatedNews: [RelatedNewsOrString!]
+  relatedProjects: [RelatedProjectOrString!]
+  gallery: [Image!]
+  image: Image
+  video: Video
+  tags: [Tag!]
+  files: [File!]
+  color: String
+  date: AWSTimestamp
+}
+
+type Sponsor implements People & Affiliation {
+
+}
+
+type Gallery implements Image {
+
+}
+
+type Fellow implements People {
+
+}
+
+type Model {
+  queryFilters: AWSJSON #TODO à verifier
+  aliases: [String!]
+  source: String
+  path: String
+  type: String
+  list: List!
+  form: AWSJSON
+}
+
+type Filters {
+  type: String!
+  rules: AWSJSON
+  label: String!
+  items: AWSJSON #TODO à verifier
+  visibility: Visibility
+  multiple: Boolean
+}
+
+type Sort {
+  icon: String!
+  text: String!
+  value: [SortValue!]!  #TODO à verifier
+  default: Boolean
+}
+
+type SortValue {
+  key: String!
+  order: Int!
+}
+
+type Views {
+  icon: String!
+  default: Boolean
+  name: String
+}
+
+type List {
+  create: Boolean!
+  perPage: PerPage!
+  filters: AWSJSON
+  sort: AWSJSON
+  views: AWSJSON
+}
+
+type Visibility {
+  default: Boolean
+  switchIf: [AWSJSON]
+  disjonctive: Boolean
+}
+
+type PerPage {
+  options: [Int!]!
+  default: Int!
+}
+
+
+
+type Form {
+  type: Int!
+  component: StringOrBoolean!
+  label: String!
+  default: AWSJSON #TODO : à verifier
+  description: String
+  hint: StringOrBoolean
+  rules: Rules
+  visibility: Visibility
+  meta: String
+  items: JSON
+  multiple: Boolean
+}
+
+
+type Rules {
+  required: Boolean
+  min: Int
+  max: Int
+  url: Boolean
+  color: Boolean
+  ror: Boolean
+  DOI: Boolean
+  date: Boolean
+  email: Boolean
+  digit: Boolean
+  orcid: Boolean
+}
+
+
+type Article {
+  name: String!
+  abstract: String!
+  image: Image
+  video: Video
+  needDOI: Boolean!
+  DOI: String
+  Zid: String
+  highlight: Boolean!
+  date: AWSTimestamp
+  authors: [People!]!
+  issue: String
+  lang: String!
+  disciplines: [Discipline!]
+  tag: [Tag!]
+}
+
+
+# # type App {
+# #   name: String!
+# #   logo: Image
+# # }
