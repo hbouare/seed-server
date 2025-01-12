@@ -89,50 +89,50 @@ type Affiliation {
   url: String
 }
 
-type RelatedEvent {
-  bookingState: Int!
-  createdAt: GraphQLTimestamp!
-  description: String
-  image: Image
-  name: String!
-  outside: Boolean
-  start: String
-  state: Int!
-  summary: String
-  eventType: Int!
-  url: URL!
-}
+# type RelatedEvent {
+#   bookingState: Int!
+#   createdAt: GraphQLTimestamp!
+#   description: String
+#   image: Image
+#   name: String!
+#   outside: Boolean
+#   start: String
+#   state: Int!
+#   summary: String
+#   eventType: Int!
+#   url: URL!
+# }
 
-type RelatedPublications {
-  title: String!
-  shortDescription: String
-  description: String
-  url: URL!
-  image: Image
-  video: Video
-  color: String
-  date: GraphQLTimestamp
-}
+# type RelatedPublications {
+#   title: String!
+#   shortDescription: String
+#   description: String
+#   url: URL!
+#   image: Image
+#   video: Video
+#   color: String
+#   date: GraphQLTimestamp
+# }
 
-type RelatedNews {
-  title: String!
-  description: String
-  image: Image
-  color: String
-  url: URL!
-  date: GraphQLTimestamp
-  featured: GraphQLTimestamp
-}
+# type RelatedNews {
+#   title: String!
+#   description: String
+#   image: Image
+#   color: String
+#   url: URL!
+#   date: GraphQLTimestamp
+#   featured: GraphQLTimestamp
+# }
 
 type Project {
   title: String!
   subtitle: String
   description: String
   url: URL
-  affiliations: [Affiliation]
-  relatedEvents: [RelatedEvent]
-  relatedPublications: [RelatedPublications]
-  relatedNews: [RelatedNews]
+  # affiliations: [Affiliation]
+  # relatedEvents: [RelatedEvent]
+  # relatedPublications: [RelatedPublications]
+  # relatedNews: [RelatedNews]
   gallery: [Image]
   image: Image
   video: Video
