@@ -1,6 +1,5 @@
 import { getProjects } from "./db/project.js"
-import { GraphQLURL, GraphQLTimestamp, GraphQLJSON } from "graphql-scalars" // https://the-guild.dev/graphql/scalars/docs/quick-start
-
+import { GraphQLURL, GraphQLTimestamp, GraphQLJSON } from "graphql-scalars"
 export const resolvers = {
   GraphQLTimestamp,
   GraphQLJSON,
